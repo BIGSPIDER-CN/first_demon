@@ -239,7 +239,7 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dr
             },
             "cy_grade": {
                 "value": cy_grade,
-                "color": "#FFFF00"
+                "color": "#FF8C00"
             },
             "zwx_grade": {
                 "value": zwx_grade,
