@@ -187,95 +187,95 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dr
         "data": {
             "date": {
                 "value": "{} {}".format(today, week),
-                "color": get_color()
+                "color": “#DC143C”
             },
             "region": {
                 "value": region_name,
-                "color": get_color()
+                "color": “#FFC0CB”
             },
             "weather": {
                 "value": weather,
-                "color": get_color()
+                "color": “#AFEEEE”
             },
             "temp": {
                 "value": temp,
-                "color": get_color()
+                "color": “#7FFFAA”
             },
             "wind_dir": {
                 "value": wind_dir,
-                "color": get_color()
+                "color": “#FFA500”
             },
             "love_day": {
                 "value": love_days,
-                "color": get_color()
+                "color": “#CD853F”
             },
             "note_en": {
                 "value": note_en,
-                "color": get_color()
+                "color": “#808000”
             },
             "note_ch": {
                 "value": note_ch,
-                "color": get_color()
+                "color": “#8B4513”
             },
             "dressing_index": {
                 "value": dressing_index,
-                "color": get_color()
+                "color": “#1E90FF”
             },
             "UV_index": {
                 "value": UV_index,
-                "color": get_color()
+                "color": “#7B68EE”
             },
             "cold_index": {
                 "value": cold_index,
-                "color": get_color()
+                "color": “#800080”
             },
             "makeup_index": {
                 "value": makeup_index,
-                "color": get_color()
+                "color": “#E1FFFF”
             },
             "SPF_index": {
                 "value": SPF_index,
-                "color": get_color()
+                "color": “#7FFFAA”
             },
             "cy_grade": {
                 "value": cy_grade,
-                "color": get_color()
+                "color": “#FFFF00”
             },
             "zwx_grade": {
                 "value": zwx_grade,
-                "color": get_color()
+                "color": “#FFD700”
             },
             "gm_grade": {
                 "value": gm_grade,
-                "color": get_color()
+                "color": “#3CB371”
             },
             "hz_grade": {
                 "value": hz_grade,
-                "color": get_color()
+                "color": “#D2B48C”
             },
             "fs_grade": {
                 "value": fs_grade,
-                "color": get_color()
+                "color": “#FF8C00”
             },
             "cy_suggestion": {
                 "value": cy_suggestion,
-                "color": get_color()
+                "color": “#D2691E”
             },
             "zwx_suggestion": {
                 "value": zwx_suggestion,
-                "color": get_color()
+                "color": “#FF4500”
             },
             "gm_suggestion": {
                 "value": gm_suggestion,
-                "color": get_color()
+                "color": “#CD853F”
             },
             "hz_suggestion": {
                 "value": hz_suggestion,
-                "color": get_color()
+                "color": “#FA8072”
             },
             "fs_suggestion": {
                 "value": fs_suggestion,
-                "color": get_color()
+                "color": “#8B0000”
             }
         }
     }
