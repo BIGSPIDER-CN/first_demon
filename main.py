@@ -187,23 +187,23 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dr
         "data": {
             "date": {
                 "value": "{} {}".format(today, week),
-                "color": "#DC143C"
+                "color": "#8B0000"
             },
             "region": {
                 "value": region_name,
-                "color": "#FFC0CB"
+                "color": "#FF8C00"
             },
             "weather": {
                 "value": weather,
-                "color": "#AFEEEE"
+                "color": "#8B0000"
             },
             "temp": {
                 "value": temp,
-                "color": "#7FFFAA"
+                "color": "#8B0000"
             },
             "wind_dir": {
                 "value": wind_dir,
-                "color": "#FFA500"
+                "color": "#8B0000"
             },
             "love_day": {
                 "value": love_days,
@@ -211,35 +211,35 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dr
             },
             "note_en": {
                 "value": note_en,
-                "color": "#808000"
+                "color": "#FF8C00"
             },
             "note_ch": {
                 "value": note_ch,
-                "color": "#8B4513"
+                "color": "#FF8C00"
             },
             "dressing_index": {
                 "value": dressing_index,
-                "color": "#1E90FF"
+                "color": "#8B0000"
             },
             "UV_index": {
                 "value": UV_index,
-                "color": "#7B68EE"
+                "color": "#8B0000"
             },
             "cold_index": {
                 "value": cold_index,
-                "color": "#800080"
+                "color": "#8B0000"
             },
             "makeup_index": {
                 "value": makeup_index,
-                "color": "#E1FFFF"
+                "color": "#8B0000"
             },
             "SPF_index": {
                 "value": SPF_index,
-                "color": "#7FFFAA"
+                "color": "#8B0000"
             },
             "cy_grade": {
                 "value": cy_grade,
-                "color": "#FF8C00"
+                "color": "#8B0000"
             },
             "zwx_grade": {
                 "value": zwx_grade,
@@ -247,35 +247,35 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dr
             },
             "gm_grade": {
                 "value": gm_grade,
-                "color": "#3CB371"
+                "color": "#8B0000"
             },
             "hz_grade": {
                 "value": hz_grade,
-                "color": "#D2B48C"
+                "color": "#8B0000"
             },
             "fs_grade": {
                 "value": fs_grade,
-                "color": "#FF8C00"
+                "color": "#8B0000"
             },
             "cy_suggestion": {
                 "value": cy_suggestion,
-                "color": "#D2691E"
+                "color": "#800080"
             },
             "zwx_suggestion": {
                 "value": zwx_suggestion,
-                "color": "#FF4500"
+                "color": "#800080"
             },
             "gm_suggestion": {
                 "value": gm_suggestion,
-                "color": "#CD853F"
+                "color": "#800080"
             },
             "hz_suggestion": {
                 "value": hz_suggestion,
-                "color": "#FA8072"
+                "color": "#800080"
             },
             "fs_suggestion": {
                 "value": fs_suggestion,
-                "color": "#8B0000"
+                "color": "#800080"
             }
         }
     }
