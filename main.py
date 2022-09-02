@@ -12,9 +12,12 @@ import jsonpath
 
 def get_color():
     # 获取随机颜色
-    get_colors = lambda n: list(map(lambda i: "#" + "%06x" % random.randint(0, 0xFFFFFF), range(n)))
-    color_list = get_colors(100)
-    return random.choice(color_list)
+    color='#'
+    list1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A','B','C','D','E','F']
+    for i in range(6):
+        color_str=random.choice(list1)
+        color+=color_str
+    return color
 
 
 def get_access_token():
