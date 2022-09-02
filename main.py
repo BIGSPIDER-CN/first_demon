@@ -7,7 +7,7 @@ import sys
 import os
 # from lxml import etree
 import random
-import jsonpath
+# import jsonpath
 
 
 def get_color():
