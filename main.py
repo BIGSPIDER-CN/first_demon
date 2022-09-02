@@ -5,7 +5,7 @@ from datetime import datetime, date
 from zhdate import ZhDate
 import sys
 import os
-from lxml import etree
+# from lxml import etree
 import random
 import jsonpath
 
