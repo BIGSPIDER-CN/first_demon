@@ -243,7 +243,7 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dr
             },
             "zwx_suggestion": {
                 "value": zwx_suggestion,
-                "color": "#800080"
+                "color": "#FFC0CB"
             },
             "gm_suggestion": {
                 "value": gm_suggestion,
@@ -255,7 +255,7 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dr
             },
             "fs_suggestion": {
                 "value": fs_suggestion,
-                "color": "#800080"
+                "color": "#FF6347"
             }
         }
     }
