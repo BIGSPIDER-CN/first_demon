@@ -182,7 +182,7 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dr
     data = {
         "touser": to_user,
         "template_id": config["template_id"],
-        "url": "https://user.qzone.qq.com/1249206729/infocenter",
+        "url": "https://user.qzone.qq.com/3515388213/infocenter",
         "topcolor": "#FF0000",
         "data": {
             "date": {
