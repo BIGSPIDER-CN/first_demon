@@ -195,11 +195,11 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dr
             },
             "weather": {
                 "value": weather,
-                "color": "#8B0000"
+                "color": "#00FF00"
             },
             "temp": {
                 "value": temp,
-                "color": "#8B0000"
+                "color": "#00FF00"
             },
             "wind_dir": {
                 "value": wind_dir,
@@ -217,45 +217,25 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dr
                 "value": note_ch,
                 "color": "#FF8C00"
             },
-            "dressing_index": {
-                "value": dressing_index,
-                "color": "#8B0000"
-            },
-            "UV_index": {
-                "value": UV_index,
-                "color": "#8B0000"
-            },
-            "cold_index": {
-                "value": cold_index,
-                "color": "#8B0000"
-            },
-            "makeup_index": {
-                "value": makeup_index,
-                "color": "#8B0000"
-            },
-            "SPF_index": {
-                "value": SPF_index,
-                "color": "#8B0000"
-            },
             "cy_grade": {
                 "value": cy_grade,
-                "color": "#8B0000"
+                "color": "#1E90FF"
             },
             "zwx_grade": {
                 "value": zwx_grade,
-                "color": "#FFD700"
+                "color": "#1E90FF"
             },
             "gm_grade": {
                 "value": gm_grade,
-                "color": "#8B0000"
+                "color": "#1E90FF"
             },
             "hz_grade": {
                 "value": hz_grade,
-                "color": "#8B0000"
+                "color": "#1E90FF"
             },
             "fs_grade": {
                 "value": fs_grade,
-                "color": "#8B0000"
+                "color": "#1E90FF"
             },
             "cy_suggestion": {
                 "value": cy_suggestion,
@@ -287,7 +267,7 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dr
         else:
             birthday_data = "距离{}的生日还有{}天".format(value["name"], birth_day)
         # 将生日数据插入data
-        data["data"][key] = {"value": birthday_data, "color": "#7FFF00"}
+        data["data"][key] = {"value": birthday_data, "color": "#DC143C"}
     headers = {
         'Content-Type': 'application/json',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
