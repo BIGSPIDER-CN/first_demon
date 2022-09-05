@@ -65,6 +65,8 @@ def get_weather(region):
     weather_warning_response = get(weather_warning_url, headers=headers).json()
     waring_title = jsonpath.jsonpath(weather_warning_response,'$..title')
     waring_text = jsonpath.jsonpath(weather_warning_response,'$..text')
+    waring_title = list(waring_title)
+    waring_text = list(waring_text)
     if len(waring_text) | len(waring_title) == 0:
         waring_title='暂无恶劣天气信息'
         waring_text='暂无恶劣天气信息'
