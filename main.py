@@ -59,9 +59,13 @@ def get_weather(region):
     weather_url = "https://devapi.qweather.com/v7/weather/now?location={}&key={}".format(location_id, key)
     life_suggestion_url = 'https://devapi.qweather.com/v7/indices/1d?type=3,5,9,13,16&location={}&key={}'.format(
         location_id, key)
+    weather_warning_url='https://devapi.qweather.com/v7/warning/now?location={}&key={}'.format(location_id, key)
     response = get(weather_url, headers=headers).json()
     response1 = get(life_suggestion_url, headers=headers).json()
-    # 天气
+    weather_warning_response = get(weather_warning_url, headers=headers).json()
+    title = jsonpath.jsonpath(weather_warning_response,'$..title')[0]
+    text = jsonpath.jsonpath(weather_warning_response,'$..text')[0]
+    #天气
     weather = response["now"]["text"]
     # 当前温度
     temp = response["now"]["temp"] + u"\N{DEGREE SIGN}" + "C"
@@ -91,8 +95,7 @@ def get_weather(region):
     fs_suggestion = texts[4]
 
     return weather, temp, wind_dir, dressing_index, UV_index, cold_index, makeup_index, SPF_index, cy_grade, zwx_grade \
-        , gm_grade, hz_grade, fs_grade, cy_suggestion, zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion
-
+        , gm_grade, hz_grade, fs_grade, cy_suggestion, zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion,title,text
 
 def get_birthday(birthday, year, today):
     birthday_year = birthday.split("-")[0]
