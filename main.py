@@ -63,13 +63,7 @@ def get_weather(region):
     response = get(weather_url, headers=headers).json()
     response1 = get(life_suggestion_url, headers=headers).json()
     weather_warning_response = get(weather_warning_url, headers=headers).json()
-    waring_title = jsonpath.jsonpath(weather_warning_response,'$..title')
-    waring_text = jsonpath.jsonpath(weather_warning_response,'$..text')
-    if len(waring_text) | len(waring_title) == 0:
-        waring_title='暂无恶劣天气信息'
-        waring_text='暂无恶劣天气信息'
-    waring_title= waring_title[0]
-    waring_text = waring_text[0]
+    
     #天气
     weather = response["now"]["text"]
     # 当前温度
@@ -98,6 +92,14 @@ def get_weather(region):
     gm_suggestion = texts[2]
     hz_suggestion = texts[3]
     fs_suggestion = texts[4]
+    
+    waring_title = jsonpath.jsonpath(weather_warning_response,'$..title')
+    waring_text = jsonpath.jsonpath(weather_warning_response,'$..text')
+#     if len(waring_text) | len(waring_title) == 0:
+#         waring_title='暂无恶劣天气信息'
+#         waring_text='暂无恶劣天气信息'
+    waring_title= waring_title[0]
+    waring_text = waring_text[0]
 
     return weather, temp, wind_dir, dressing_index, UV_index, cold_index, makeup_index, SPF_index, cy_grade, zwx_grade \
         , gm_grade, hz_grade, fs_grade, cy_suggestion, zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion,waring_title,waring_text
