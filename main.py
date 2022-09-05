@@ -63,8 +63,13 @@ def get_weather(region):
     response = get(weather_url, headers=headers).json()
     response1 = get(life_suggestion_url, headers=headers).json()
     weather_warning_response = get(weather_warning_url, headers=headers).json()
-    title = jsonpath.jsonpath(weather_warning_response,'$..title')[0]
-    text = jsonpath.jsonpath(weather_warning_response,'$..text')[0]
+    waring_title = jsonpath.jsonpath(weather_warning_response,'$..title')
+    waring_text = jsonpath.jsonpath(weather_warning_response,'$..text')
+    if len(waring_text) | len(waring_title) == 0:
+        waring_title='暂无恶劣天气信息'
+        waring_text='暂无恶劣天气信息'
+    waring_title= waring_title[0]
+    waring_text = waring_text[0]
     #天气
     weather = response["now"]["text"]
     # 当前温度
@@ -95,7 +100,7 @@ def get_weather(region):
     fs_suggestion = texts[4]
 
     return weather, temp, wind_dir, dressing_index, UV_index, cold_index, makeup_index, SPF_index, cy_grade, zwx_grade \
-        , gm_grade, hz_grade, fs_grade, cy_suggestion, zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion,title,text
+        , gm_grade, hz_grade, fs_grade, cy_suggestion, zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion,waring_title,waring_text
 
 def get_birthday(birthday, year, today):
     birthday_year = birthday.split("-")[0]
@@ -162,7 +167,7 @@ def get_ciba():
 def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dressing_index, UV_index, cold_index
                  , makeup_index, SPF_index, cy_grade, zwx_grade, gm_grade, hz_grade, fs_grade, cy_suggestion,
                  zwx_suggestion
-                 , gm_suggestion, hz_suggestion, fs_suggestion,title,text, note_ch, note_en):
+                 , gm_suggestion, hz_suggestion, fs_suggestion,waring_title,waring_text, note_ch, note_en):
     url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}".format(access_token)
     week_list = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
     year = localtime().tm_year
@@ -260,12 +265,12 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dr
                 "value": fs_suggestion,
                 "color": "#FF6347"
             },
-            "title": {
-                "value": title,
+            "waring_title": {
+                "value": waring_title,
                 "color": "#FF6347"
             },
-            "text": {
-                "value": text,
+            "waring_text": {
+                "value": waring_text,
                 "color": "#FF6347"
             }
         }
@@ -317,7 +322,7 @@ if __name__ == "__main__":
     # 传入地区获取天气信息
     region = config["region"]
     weather, temp, wind_dir, dressing_index, UV_index, cold_index, makeup_index, SPF_index, cy_grade, zwx_grade, gm_grade \
-        , hz_grade, fs_grade, cy_suggestion, zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion,title,text = get_weather(
+        , hz_grade, fs_grade, cy_suggestion, zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion,waring_title,waring_text = get_weather(
         region)
     note_ch = config["note_ch"]
     note_en = config["note_en"]
@@ -329,5 +334,5 @@ if __name__ == "__main__":
         send_message(user, accessToken, region, weather, temp, wind_dir, dressing_index, UV_index
                      , cold_index, makeup_index, SPF_index, cy_grade, zwx_grade, gm_grade, hz_grade, fs_grade,
                      cy_suggestion
-                     , zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion,title,text, note_ch, note_en)
+                     , zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion,waring_title,waring_text, note_ch, note_en)
     os.system("pause")
