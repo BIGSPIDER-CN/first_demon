@@ -162,7 +162,7 @@ def get_ciba():
 def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dressing_index, UV_index, cold_index
                  , makeup_index, SPF_index, cy_grade, zwx_grade, gm_grade, hz_grade, fs_grade, cy_suggestion,
                  zwx_suggestion
-                 , gm_suggestion, hz_suggestion, fs_suggestion, note_ch, note_en):
+                 , gm_suggestion, hz_suggestion, fs_suggestion,title,text, note_ch, note_en):
     url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}".format(access_token)
     week_list = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
     year = localtime().tm_year
@@ -259,6 +259,14 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dr
             "fs_suggestion": {
                 "value": fs_suggestion,
                 "color": "#FF6347"
+            },
+            "title": {
+                "value": title,
+                "color": "#FF6347"
+            },
+            "text": {
+                "value": text,
+                "color": "#FF6347"
             }
         }
     }
@@ -309,7 +317,7 @@ if __name__ == "__main__":
     # 传入地区获取天气信息
     region = config["region"]
     weather, temp, wind_dir, dressing_index, UV_index, cold_index, makeup_index, SPF_index, cy_grade, zwx_grade, gm_grade \
-        , hz_grade, fs_grade, cy_suggestion, zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion = get_weather(
+        , hz_grade, fs_grade, cy_suggestion, zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion,title,text = get_weather(
         region)
     note_ch = config["note_ch"]
     note_en = config["note_en"]
@@ -321,5 +329,5 @@ if __name__ == "__main__":
         send_message(user, accessToken, region, weather, temp, wind_dir, dressing_index, UV_index
                      , cold_index, makeup_index, SPF_index, cy_grade, zwx_grade, gm_grade, hz_grade, fs_grade,
                      cy_suggestion
-                     , zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion, note_ch, note_en)
+                     , zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion,title,text, note_ch, note_en)
     os.system("pause")
