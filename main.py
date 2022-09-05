@@ -12,11 +12,11 @@ import jsonpath
 
 def get_color():
     # 获取随机颜色
-    color='#'
-    list1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A','B','C','D','E','F']
+    color = '#'
+    list1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
     for i in range(6):
-        color_str=random.choice(list1)
-        color+=color_str
+        color_str = random.choice(list1)
+        color += color_str
     return color
 
 
@@ -59,50 +59,38 @@ def get_weather(region):
     weather_url = "https://devapi.qweather.com/v7/weather/now?location={}&key={}".format(location_id, key)
     life_suggestion_url = 'https://devapi.qweather.com/v7/indices/1d?type=3,5,9,13,16&location={}&key={}'.format(
         location_id, key)
-    weather_warning_url='https://devapi.qweather.com/v7/warning/now?location={}&key={}'.format(location_id, key)
+    weather_warning_url = 'https://devapi.qweather.com/v7/warning/now?location={}&key={}'.format(location_id, key)
     response = get(weather_url, headers=headers).json()
     response1 = get(life_suggestion_url, headers=headers).json()
     weather_warning_response = get(weather_warning_url, headers=headers).json()
-    
-    #天气
+    waring_title = jsonpath.jsonpath(weather_warning_response, '$..title')
+    waring_text = jsonpath.jsonpath(weather_warning_response, '$..text')
+    print(waring_title)
+    print(waring_text)
+    if len(waring_text) | len(waring_title) == 0:
+        waring_title = '暂无恶劣天气信息'
+        waring_text = '暂无恶劣天气信息'
+    else:
+        waring_title = waring_title[0]
+        waring_text = waring_text[0]
+    # 天气
     weather = response["now"]["text"]
     # 当前温度
     temp = response["now"]["temp"] + u"\N{DEGREE SIGN}" + "C"
     # 风向
     wind_dir = response["now"]["windDir"]
 
-    type_names = jsonpath.jsonpath(response1, '$..name')
-    indexs = jsonpath.jsonpath(response1, '$..category')
     texts = jsonpath.jsonpath(response1, '$..text')
-
-    dressing_index = type_names[0]  # 穿衣指数
-    UV_index = type_names[1]  # 紫外线指数
-    cold_index = type_names[2]  # 感冒指数
-    makeup_index = type_names[3]  # 化妆指数
-    SPF_index = type_names[4]  # 防晒指数
-
-    cy_grade = indexs[0]
-    zwx_grade = indexs[1]
-    gm_grade = indexs[2]
-    hz_grade = indexs[3]
-    fs_grade = indexs[4]
 
     cy_suggestion = texts[0]
     zwx_suggestion = texts[1]
     gm_suggestion = texts[2]
     hz_suggestion = texts[3]
     fs_suggestion = texts[4]
-    
-    waring_title = jsonpath.jsonpath(weather_warning_response,'$..title')
-    waring_text = jsonpath.jsonpath(weather_warning_response,'$..text')
-#     if len(waring_text) | len(waring_title) == 0:
-#         waring_title='暂无恶劣天气信息'
-#         waring_text='暂无恶劣天气信息'
-    waring_title= waring_title[0]
-    waring_text = waring_text[0]
 
-    return weather, temp, wind_dir, dressing_index, UV_index, cold_index, makeup_index, SPF_index, cy_grade, zwx_grade \
-        , gm_grade, hz_grade, fs_grade, cy_suggestion, zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion,waring_title,waring_text
+    return weather, temp, wind_dir, cy_suggestion, zwx_suggestion \
+        , gm_suggestion, hz_suggestion, fs_suggestion, waring_title, location_id
+
 
 def get_birthday(birthday, year, today):
     birthday_year = birthday.split("-")[0]
@@ -166,10 +154,9 @@ def get_ciba():
     return note_ch, note_en
 
 
-def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dressing_index, UV_index, cold_index
-                 , makeup_index, SPF_index, cy_grade, zwx_grade, gm_grade, hz_grade, fs_grade, cy_suggestion,
-                 zwx_suggestion
-                 , gm_suggestion, hz_suggestion, fs_suggestion,waring_title,waring_text, note_ch, note_en):
+def send_message(to_user, access_token, region_name, weather, temp, wind_dir, cy_suggestion, gm_suggestion,
+                 fs_suggestion
+                 , waring_title, note_ch, note_en, location_id):
     url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}".format(access_token)
     week_list = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
     year = localtime().tm_year
@@ -192,7 +179,7 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dr
     data = {
         "touser": to_user,
         "template_id": config["template_id"],
-        "url": "https://user.qzone.qq.com/3515388213/infocenter",
+        "url": "https://www.qweather.com/weather/{}.html".format(location_id),
         "topcolor": "#FF0000",
         "data": {
             "date": {
@@ -227,52 +214,20 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, dr
                 "value": note_ch,
                 "color": "#FF8C00"
             },
-            "cy_grade": {
-                "value": cy_grade,
-                "color": "#1E90FF"
-            },
-            "zwx_grade": {
-                "value": zwx_grade,
-                "color": "#1E90FF"
-            },
-            "gm_grade": {
-                "value": gm_grade,
-                "color": "#1E90FF"
-            },
-            "hz_grade": {
-                "value": hz_grade,
-                "color": "#1E90FF"
-            },
-            "fs_grade": {
-                "value": fs_grade,
-                "color": "#1E90FF"
-            },
             "cy_suggestion": {
                 "value": cy_suggestion,
                 "color": "#800080"
-            },
-            "zwx_suggestion": {
-                "value": zwx_suggestion,
-                "color": "#FFC0CB"
             },
             "gm_suggestion": {
                 "value": gm_suggestion,
                 "color": "#800080"
             },
-            "hz_suggestion": {
-                "value": hz_suggestion,
-                "color": "#800080"
-            },
             "fs_suggestion": {
                 "value": fs_suggestion,
-                "color": "#FF6347"
+                "color": "#800080"
             },
-            "waring_title": {
+            "text": {
                 "value": waring_title,
-                "color": "#FF6347"
-            },
-            "waring_text": {
-                "value": waring_text,
                 "color": "#FF6347"
             }
         }
@@ -323,8 +278,8 @@ if __name__ == "__main__":
     users = config["user"]
     # 传入地区获取天气信息
     region = config["region"]
-    weather, temp, wind_dir, dressing_index, UV_index, cold_index, makeup_index, SPF_index, cy_grade, zwx_grade, gm_grade \
-        , hz_grade, fs_grade, cy_suggestion, zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion,waring_title,waring_text = get_weather(
+    weather, temp, wind_dir, cy_suggestion, zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion, waring_title \
+        , location_id = get_weather(
         region)
     note_ch = config["note_ch"]
     note_en = config["note_en"]
@@ -333,8 +288,6 @@ if __name__ == "__main__":
         note_ch, note_en = get_ciba()
     # 公众号推送消息
     for user in users:
-        send_message(user, accessToken, region, weather, temp, wind_dir, dressing_index, UV_index
-                     , cold_index, makeup_index, SPF_index, cy_grade, zwx_grade, gm_grade, hz_grade, fs_grade,
-                     cy_suggestion
-                     , zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion,waring_title,waring_text, note_ch, note_en)
+        send_message(user, accessToken, region, weather, temp, wind_dir, cy_suggestion, gm_suggestion, fs_suggestion,
+                     waring_title, note_ch, note_en, location_id)
     os.system("pause")
