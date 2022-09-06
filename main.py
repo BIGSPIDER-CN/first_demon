@@ -64,15 +64,10 @@ def get_weather(region):
     response1 = get(life_suggestion_url, headers=headers).json()
     weather_warning_response = get(weather_warning_url, headers=headers).json()
     waring_title = jsonpath.jsonpath(weather_warning_response, '$..title')
-    waring_text = jsonpath.jsonpath(weather_warning_response, '$..text')
-    print(waring_title)
-    print(waring_text)
-    if len(waring_text) | len(waring_title) == 0:
+    if len(waring_title) == 0:
         waring_title = '暂无恶劣天气信息'
-        waring_text = '暂无恶劣天气信息'
     else:
         waring_title = waring_title[0]
-        waring_text = waring_text[0]
     # 天气
     weather = response["now"]["text"]
     # 当前温度
