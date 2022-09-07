@@ -50,10 +50,12 @@ def get_weather(region):
     response1 = get(life_suggestion_url, headers=headers).json()
     weather_warning_response = get(weather_warning_url, headers=headers).json()
     waring_title = jsonpath.jsonpath(weather_warning_response, '$..title')
-    if len(waring_title) == 0:
-        waring_title = '暂无恶劣天气信息'
+
+    if waring_title == False:
+        waring_title = '暂无预警'
     else:
         waring_title = waring_title[0]
+    print(waring_title)
     # 天气
     weather = response["now"]["text"]
     # 当前温度
@@ -234,6 +236,7 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, cy
 
 
 if __name__ == "__main__":
+
     try:
         with open("config.txt", encoding="utf-8") as f:
             config = eval(f.read())
@@ -253,8 +256,7 @@ if __name__ == "__main__":
     # 传入地区获取天气信息
     region = config["region"]
     weather, temp, wind_dir, cy_suggestion, zwx_suggestion, gm_suggestion, hz_suggestion, fs_suggestion, waring_title \
-        , location_id = get_weather(
-        region)
+        , location_id = get_weather(region)
     note_ch = config["note_ch"]
     note_en = config["note_en"]
     if note_ch == "" and note_en == "":
