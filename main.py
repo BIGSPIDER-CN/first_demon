@@ -1,23 +1,10 @@
-import random
 from time import localtime
 from requests import get, post
 from datetime import datetime, date
 from zhdate import ZhDate
 import sys
 import os
-from lxml import etree
-import random
 import jsonpath
-
-
-def get_color():
-    # 获取随机颜色
-    color = '#'
-    list1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
-    for i in range(6):
-        color_str = random.choice(list1)
-        color += color_str
-    return color
 
 
 def get_access_token():
@@ -33,7 +20,6 @@ def get_access_token():
         print("获取access_token失败，请检查app_id和app_secret是否正确")
         os.system("pause")
         sys.exit(1)
-    # print(access_token)
     return access_token
 
 
@@ -131,19 +117,12 @@ def get_birthday(birthday, year, today):
 def get_ciba():
     """美句函数"""
     url = "http://open.iciba.com/dsapi/"
-    # url = "https://www.wenanwang.com/qg/1704.html"
     headers = {
         'Content-Type': 'application/json',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
                       'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
     }
     r = get(url, headers=headers)
-    # r = get(url, headers=headers).content.decode('utf-8')
-    # xpath_html = etree.HTML(r)
-    # sentent_list = xpath_html.xpath('//*[@id="ML"]/div[1]/div[2]/p/text()')
-    # sentent = random.choice(sentent_list)
-    # print(sentent)
-
     note_en = r.json()["content"]
     note_ch = r.json()["note"]
     return note_ch, note_en
